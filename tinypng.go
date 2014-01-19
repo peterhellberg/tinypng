@@ -1,11 +1,6 @@
 package tinypng
 
 import (
-	"encoding/json"
-	"errors"
-	"fmt"
-	"io/ioutil"
-	"net/http"
 	"os"
 )
 
@@ -28,63 +23,18 @@ func ShrinkFn(apiKey string, inputFilename string) (Response, error) {
 
 // Shrink allows you to shrink a PNG file using an open file handle.
 func Shrink(apiKey string, inputFile *os.File) (Response, error) {
-	req, err := preparePOSTRequest(apiKey, inputFile)
-	check(err)
-
-	res, err := sendPOSTRequest(req)
+	res, err := uploadPNG(apiKey, inputFile)
 	check(err)
 
 	defer res.Body.Close()
 
-	body, err := ioutil.ReadAll(res.Body)
-	check(err)
-
 	var r Response
 
-	err = json.Unmarshal(body, &r)
-	check(err)
+	r.PopulateFromHTTPResponse(res)
 
-	// Get the output URL from the Location header
-	r.URL = res.Header.Get("Location")
-
-	if res.StatusCode != http.StatusCreated {
-		return r, errors.New("unauthorized")
+	if res.StatusCode == 201 {
+		return r, nil
 	}
 
-	return r, nil
-}
-
-// Prepare POST request
-func preparePOSTRequest(apiKey string, inputFile *os.File) (*http.Request, error) {
-	req, err := http.NewRequest("POST", apiURL+"shrink", inputFile)
-
-	if err != nil {
-		return req, err
-	}
-
-	// Authenticate using the API key
-	req.SetBasicAuth(apiUser, apiKey)
-
-	return req, nil
-}
-
-// Send POST request
-func sendPOSTRequest(req *http.Request) (*http.Response, error) {
-	// Create a HTTP client
-	client := &http.Client{}
-
-	// Perform the POST request
-	res, err := client.Do(req)
-	check(err)
-
-	return res, nil
-}
-
-// Basic error checking
-func check(err error) {
-	if err != nil {
-		fmt.Println("Error:", err)
-
-		os.Exit(1)
-	}
+	return r, e("unsuccessful")
 }
