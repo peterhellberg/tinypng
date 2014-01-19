@@ -118,13 +118,13 @@ func fileExists(name string) bool {
 // PNG
 
 func validPNGFile(fn string) bool {
-	pngImage, oerr := os.Open(fn)
+	pngImage, err := os.Open(fn)
 
-	check(oerr)
+	check(err)
 
 	defer pngImage.Close()
 
-	_, err := png.DecodeConfig(pngImage)
+	_, err = png.DecodeConfig(pngImage)
 
 	if err != nil {
 		return false
