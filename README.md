@@ -2,6 +2,7 @@
 
 Compress a PNG file with the help of the [TinyPNG](https://tinypng.com/) service.
 
+[![Build Status](https://travis-ci.org/peterhellberg/tinypng.png?branch=master)](https://travis-ci.org/peterhellberg/tinypng)
 [![GoDoc](https://godoc.org/github.com/peterhellberg/tinypng?status.png)](https://godoc.org/github.com/peterhellberg/tinypng)
 
 ## Installation
