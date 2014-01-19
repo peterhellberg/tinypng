@@ -30,6 +30,7 @@ import (
 	"image/png"
 	"os"
 	"path"
+	"runtime"
 
 	"github.com/peterhellberg/tinypng"
 )
@@ -161,6 +162,11 @@ func fatalGreen(title, message string) {
 // Color
 
 func color(c, s string) string {
+	// No ANSI escape sequences for Windows
+	if runtime.GOOS == "windows" {
+		return s
+	}
+
 	return "\033[" + c + "m" + s + "\033[0m"
 }
 
