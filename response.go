@@ -1,8 +1,10 @@
 package tinypng
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"net/http"
 	"os"
 )
@@ -25,6 +27,18 @@ type Input struct {
 type Output struct {
 	Size  int32
 	Ratio float64
+}
+
+func (r *Response) PopulateFromHTTPResponse(res *http.Response) {
+	body, err := ioutil.ReadAll(res.Body)
+	check(err)
+
+	err = json.Unmarshal(body, &r)
+
+	check(err)
+
+	// Get the output URL from the Location header
+	r.URL = res.Header.Get("Location")
 }
 
 // SaveAs downloads and saves the compressed PNG file
