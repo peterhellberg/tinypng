@@ -37,8 +37,6 @@ type Output struct {
 
 // SaveAs downloads and saves the compressed PNG file
 func (r *Response) SaveAs(fn string) {
-	fmt.Println("\n", r.URL, "->", fn, "\n")
-
 	resp, err := http.Get(r.URL)
 	check(err)
 
@@ -57,6 +55,7 @@ func (r *Response) Print() {
 	fmt.Print("Input size: ", r.Input.Size)
 	fmt.Print(" Output size: ", r.Output.Size)
 	fmt.Println(" Ratio:", r.Output.Ratio)
+	fmt.Println("\n", r.URL, "\n")
 }
 
 // ShrinkFn allows you to Shrink using a

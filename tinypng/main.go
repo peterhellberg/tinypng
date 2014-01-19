@@ -62,8 +62,13 @@ func main() {
 		fatalRed(res.Error+":", res.Message)
 	}
 
-	// Print result
-	res.Print()
+	// Check if we are in debug mode
+	verbose := os.Getenv("TINYPNG_VERBOSE")
+
+	// Print if TINYPNG_VERBOSE is true
+	if verbose == "true" {
+		res.Print()
+	}
 
 	// Download the compressed PNG
 	res.SaveAs(outputFilename)
