@@ -6,10 +6,9 @@ Compress a PNG file with the help of the TinyPNG service.
 
 Installation
 
-Just go get the library and command:
+Just go get the command:
 
-    go get -u github.com/peterhellberg/tinypng
-
+    go get -u github.com/peterhellberg/tinypng/tinypng
 
 Usage
 
