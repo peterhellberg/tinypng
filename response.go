@@ -29,6 +29,7 @@ type Output struct {
 	Ratio float64
 }
 
+// PopulateFromHTTPResponse populates response based on HTTP response
 func (r *Response) PopulateFromHTTPResponse(res *http.Response) {
 	body, err := ioutil.ReadAll(res.Body)
 	check(err)
