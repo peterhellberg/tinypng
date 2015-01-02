@@ -3,7 +3,8 @@
 Compress a PNG file with the help of the [TinyPNG](https://tinypng.com/) service.
 
 [![Build Status](https://travis-ci.org/peterhellberg/tinypng.png?branch=master)](https://travis-ci.org/peterhellberg/tinypng)
-[![GoDoc](https://godoc.org/github.com/peterhellberg/tinypng?status.png)](https://godoc.org/github.com/peterhellberg/tinypng)
+[![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg?style=flat)](https://godoc.org/github.com/peterhellberg/tinypng)
+[![License MIT](https://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat)](https://github.com/peterhellberg/tinypng#license-mit)
 
 ## Installation
 
@@ -22,7 +23,7 @@ Then you can run the command:
 If only the input filename was specified, then the
 output filename will be `tiny-<input.png>`
 
-## License
+## License (MIT)
 
 Copyright (c) 2014 [Peter Hellberg](http://c7.se/)
 
