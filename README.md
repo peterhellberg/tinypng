@@ -1,6 +1,6 @@
 # A TinyPNG client written in Go
 
-Compress a PNG file with the help of the [TinyPNG](https://tinypng.com/) service.
+Compress a PNG (or JPEG) file with the help of the [TinyPNG](https://tinypng.com/) service.
 
 [![Build Status](https://travis-ci.org/peterhellberg/tinypng.svg?branch=master)](https://travis-ci.org/peterhellberg/tinypng)
 [![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg?style=flat)](https://godoc.org/github.com/peterhellberg/tinypng)
@@ -23,7 +23,7 @@ Then you can run the command:
 If only the input filename was specified, then the
 output filename will be `tiny-<input.png>`
 
-You can also compress JPEG files.
+You can also compress JPEG files (via [TinyJPG](https://tinyjpg.com/)).
 
 ## License (MIT)
 
