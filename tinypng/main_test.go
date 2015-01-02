@@ -3,6 +3,7 @@ package main
 import (
 	. "github.com/smartystreets/goconvey/convey"
 
+	"os"
 	"os/exec"
 	"testing"
 )
@@ -24,10 +25,12 @@ func TestTinypngCommand(t *testing.T) {
 		Convey("outputs error it invalid file", func() {
 			out, _ := execGo("run", "main.go", "../testdata/invalid.png")
 
-			So(out, ShouldContainSubstring, "Input file is not a valid PNG file.")
+			So(out, ShouldContainSubstring, "Input file is not a valid PNG or JPEG file.")
 		})
 
 		Convey("outputs note about adding TINYPNG_API_KEY to ENV", func() {
+			os.Setenv("TINYPNG_API_KEY", "")
+
 			out, _ := execGo("run", "main.go", "../testdata/valid.png")
 
 			So(out, ShouldContainSubstring, "TINYPNG_API_KEY")
