@@ -2,7 +2,7 @@
 
 Compress a PNG file with the help of the [TinyPNG](https://tinypng.com/) service.
 
-[![Build Status](https://travis-ci.org/peterhellberg/tinypng.png?branch=master)](https://travis-ci.org/peterhellberg/tinypng)
+[![Build Status](https://travis-ci.org/peterhellberg/tinypng.svg?branch=master)](https://travis-ci.org/peterhellberg/tinypng)
 [![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg?style=flat)](https://godoc.org/github.com/peterhellberg/tinypng)
 [![License MIT](https://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat)](https://github.com/peterhellberg/tinypng#license-mit)
 
