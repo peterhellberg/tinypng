@@ -23,6 +23,8 @@ Then you can run the command:
 If only the input filename was specified, then the
 output filename will be `tiny-<input.png>`
 
+You can also compress JPEG files.
+
 ## License (MIT)
 
 Copyright (c) 2014 [Peter Hellberg](http://c7.se/)

@@ -21,12 +21,15 @@ Then you can run the command:
 If only the input filename was specified, then the
 output filename will be 'tiny-<input.png>'
 
+You can also compress JPEG files.
+
 */
 package main
 
 import (
 	"errors"
 	"fmt"
+	"image/jpeg"
 	"image/png"
 	"os"
 	"path"
@@ -43,9 +46,9 @@ func main() {
 		fatalError("Input file does not exist.")
 	}
 
-	// Verify that the input file is a PNG file
-	if !validPNGFile(inputFilename) {
-		fatalError("Input file is not a valid PNG file.")
+	// Verify that the input file is a PNG or JPEG file
+	if !validFileType(inputFilename) {
+		fatalError("Input file is not a valid PNG or JPEG file.")
 	}
 
 	// Then make sure that the output file doesn’t exist
@@ -115,6 +118,12 @@ func fileExists(name string) bool {
 	return true
 }
 
+// Valid file type
+
+func validFileType(fn string) bool {
+	return validPNGFile(fn) || validJPEGFile(fn)
+}
+
 // PNG
 
 func validPNGFile(fn string) bool {
@@ -125,6 +134,24 @@ func validPNGFile(fn string) bool {
 	defer pngImage.Close()
 
 	_, err = png.DecodeConfig(pngImage)
+
+	if err != nil {
+		return false
+	}
+
+	return true
+}
+
+// JPEG
+
+func validJPEGFile(fn string) bool {
+	jpegImage, err := os.Open(fn)
+
+	check(err)
+
+	defer jpegImage.Close()
+
+	_, err = jpeg.DecodeConfig(jpegImage)
 
 	if err != nil {
 		return false
