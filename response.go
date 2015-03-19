@@ -62,5 +62,5 @@ func (r *Response) Print() {
 	fmt.Print("Input size: ", r.Input.Size)
 	fmt.Print(" Output size: ", r.Output.Size)
 	fmt.Println(" Ratio:", r.Output.Ratio)
-	fmt.Println("\n", r.URL, "\n")
+	fmt.Println("\n", r.URL)
 }
