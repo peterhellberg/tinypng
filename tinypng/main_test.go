@@ -1,45 +1,62 @@
 package main
 
 import (
-	. "github.com/smartystreets/goconvey/convey"
-
 	"os"
 	"os/exec"
+	"strings"
 	"testing"
 )
 
 func TestTinypngCommand(t *testing.T) {
-	Convey("tinypng", t, func() {
-		Convey("outputs usage instructions if no args", func() {
-			out, _ := execGo("run", "main.go")
+	t.Run("outputs usage instructions if no args", func(t *testing.T) {
+		var (
+			got  = execGo("run", "main.go")
+			want = "tinypng <input.png> [output.png]"
+		)
 
-			So(out, ShouldContainSubstring, "tinypng <input.png> [output.png]")
-		})
+		if !strings.Contains(got, want) {
+			t.Fatalf("%q does not contain %q", got, want)
+		}
+	})
 
-		Convey("outputs error if unknown file", func() {
-			out, _ := execGo("run", "main.go", "unknown.png")
+	t.Run("outputs error if unknown file", func(t *testing.T) {
+		var (
+			got  = execGo("run", "main.go", "unknown.png")
+			want = "Input file does not exist."
+		)
 
-			So(out, ShouldContainSubstring, "Input file does not exist.")
-		})
+		if !strings.Contains(got, want) {
+			t.Fatalf("%q does not contain %q", got, want)
+		}
+	})
 
-		Convey("outputs error it invalid file", func() {
-			out, _ := execGo("run", "main.go", "../testdata/invalid.png")
+	t.Run("outputs error it invalid file", func(t *testing.T) {
+		var (
+			got  = execGo("run", "main.go", "../testdata/invalid.png")
+			want = "Input file is not a valid PNG or JPEG file."
+		)
 
-			So(out, ShouldContainSubstring, "Input file is not a valid PNG or JPEG file.")
-		})
+		if !strings.Contains(got, want) {
+			t.Fatalf("%q does not contain %q", got, want)
+		}
+	})
 
-		Convey("outputs note about adding TINYPNG_API_KEY to ENV", func() {
-			os.Setenv("TINYPNG_API_KEY", "")
+	t.Run("outputs note about adding TINYPNG_API_KEY to ENV", func(t *testing.T) {
+		os.Setenv("TINYPNG_API_KEY", "")
 
-			out, _ := execGo("run", "main.go", "../testdata/valid.png")
+		var (
+			got  = execGo("run", "main.go", "../testdata/valid.png")
+			want = "TINYPNG_API_KEY"
+		)
 
-			So(out, ShouldContainSubstring, "TINYPNG_API_KEY")
-		})
+		if !strings.Contains(got, want) {
+			t.Fatalf("%q does not contain %q", got, want)
+		}
 	})
 }
 
-func execGo(args ...string) (string, error) {
-	out, err := exec.Command("go", args...).CombinedOutput()
+func execGo(args ...string) string {
+	out, _ := exec.Command("go", args...).CombinedOutput()
 
-	return string(out), err
+	return string(out)
 }
